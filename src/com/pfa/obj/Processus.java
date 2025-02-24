@@ -5,20 +5,21 @@ import java.util.Date;
 public class Processus {
 
 	private static int idCount;
+
 	private Date birthDate;
 	private int pId;
 	private int memoryRequired;
+	private int runTime;
 
-	public Processus(int memoryRequired) {
+	public Processus(int memoryRequired, int runTime) {
 		birthDate = new Date();
 		this.memoryRequired = memoryRequired;
+		this.setRunTime(runTime);
 		idCount++;
 		pId = idCount;
 	}
 
 	// GETTERS AND SETTERS
-	// ...
-
 	public Date getBirthDate() {
 		return birthDate;
 	}
@@ -41,6 +42,14 @@ public class Processus {
 
 	public void setMemoryRequired(int memoryRequired) {
 		this.memoryRequired = memoryRequired;
+	}
+
+	public int getRunTime() {
+		return runTime;
+	}
+
+	public void setRunTime(int runTime) {
+		this.runTime = runTime;
 	}
 
 }
