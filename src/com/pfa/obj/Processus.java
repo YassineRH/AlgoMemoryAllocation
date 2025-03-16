@@ -14,7 +14,7 @@ public class Processus {
 	public Processus(int memoryRequired, int runTime) {
 		birthDate = new Date();
 		this.memoryRequired = memoryRequired;
-		this.setRunTime(runTime);
+		this.runTime=runTime;
 		idCount++;
 		pId = idCount;
 	}
