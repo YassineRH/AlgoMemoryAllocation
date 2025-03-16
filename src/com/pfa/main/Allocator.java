@@ -1,30 +1,31 @@
 package com.pfa.main;
 
-import java.util.List;
-
 import com.pfa.obj.MemoryBlock;
 import com.pfa.obj.Processus;
 
 public class Allocator {
 
-	private boolean run = false;
-	private List<Processus> processusList;
-
-	public Allocator(List<Processus> processusList) {
-		this.processusList = processusList;
-	}
+	private boolean run = true;
+	private int memoryBlocksInUse = 0;
 
 	public void allocate(Processus processus, MemoryBlock block) throws InterruptedException {
-		block.setFree(false);
-		block.setProcessus(processus);
-		Thread.sleep(processus.getRunTime());
+		synchronized (block) {
+			block.setFree(false);
+			block.setProcessus(processus);
+			memoryBlocksInUse++;
+		}
+		Thread.sleep(block.getProcessus().getRunTime());
 		deallocate(block);
 	}
 
 	private void deallocate(MemoryBlock block) {
-		block.setProcessus(null);
-		block.setFree(true);
-		run = true;
+		synchronized (block) {
+			System.out.println("freeing block containing: " + block.getProcessus().getpId());
+			block.setProcessus(null);
+			block.setFree(true);
+			run = true;
+			memoryBlocksInUse--;
+		}
 	}
 
 	public boolean isRun() {
@@ -35,4 +36,11 @@ public class Allocator {
 		this.run = running;
 	}
 
+	public int getMemoryBlocksInUse() {
+		return memoryBlocksInUse;
+	}
+
+	public void setMemoryBlocksInUse(int memoryBlocksInUse) {
+		this.memoryBlocksInUse = memoryBlocksInUse;
+	}
 }

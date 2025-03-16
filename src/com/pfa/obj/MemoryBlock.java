@@ -2,13 +2,14 @@ package com.pfa.obj;
 
 public class MemoryBlock {
 
+	private int id;
 	private int size;
-	private boolean free;
+	private boolean free = true;
 	private Processus processus;
 
-	public MemoryBlock(int size, boolean free) {
+	public MemoryBlock(int id, int size) {
+		this.id = id;
 		this.size = size;
-		this.free = free;
 	}
 
 	public int getSize() {
@@ -33,6 +34,14 @@ public class MemoryBlock {
 
 	public void setProcessus(Processus processus) {
 		this.processus = processus;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
